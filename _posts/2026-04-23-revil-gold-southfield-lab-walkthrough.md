@@ -71,3 +71,4 @@ I had not answered this during the investigation, searching with the malware has
 [Tria](https://tria.ge/200624-pdt44nqn6x)
 which led to the website needed 
 **aplebzu47wgazapdqks6vrcv6zcnjppkbxbr6wketf56nf6aq2nmyoyd.onion**
+
