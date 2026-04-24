@@ -60,7 +60,7 @@ The first important one is the process creation of **facebook assistant.exe** it
 , it executes the powershell command we discussed earlier and then it started to drop the ransom notes and the process terminated after all of that. 
 
 I didn't find any further events that can help in the investigation.
-#Answers
+## Answers
 Now checking the questions of the lab: 
 - **Q1-To begin your investigation, can you identify the filename of the note that the ransomware left behind?**
 
