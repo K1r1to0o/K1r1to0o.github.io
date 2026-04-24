@@ -62,18 +62,30 @@ The first important one is the process creation of **facebook assistant.exe** it
 I didn't find any further events that can help in the investigation.
 #Answers
 Now checking the questions of the lab: 
-- **Q1-To begin your investigation, can you identify the filename of the note that the ransomware left behind?** 
+- **Q1-To begin your investigation, can you identify the filename of the note that the ransomware left behind?**
+
 It was answered already in the investigation, the answer is **5uizv5660t-readme.txt**
+
 - **Q2-After identifying the ransom note, the next step is to pinpoint the source. What's the process ID of the ransomware that's likely involved**
+
 The answer is **5348**
+
 - **Q3-Having determined the ransomware's process ID, the next logical step is to locate its origin. Where can we find the ransomware's executable file?**
+
 Answer is **C:\Users\Administrator\Downloads\facebook assistant.exe**
+
 - **Q4-Now that you've pinpointed the ransomware's executable location, let's dig deeper. It's a common tactic for ransomware to disrupt system recovery methods. Can you identify the command that was used for this purpose?**
+
 Answer is **Get-WmiObject Win32_Shadowcopy | ForEach-Object {$_.Delete();}**
+
 - **Q5-As we trace the ransomware's steps, a deeper verification is needed. Can you provide the sha256 hash of the ransomware's executable to cross-check with known malicious signatures?**
+  
 Answer is **B8D7FB4488C0556385498271AB9FFFDF0EB38BB2A330265D9852E3A6288092AA**
+
 - **Q6-One crucial piece remains: identifying the attacker's communication channel. Can you leverage threat intelligence and known Indicators of Compromise (IoCs) to pinpoint the ransomware author's onion domain?**
+  
 I had not answered this during the investigation, searching with the malware hash, I found this 
 [Tria](https://tria.ge/200624-pdt44nqn6x)
 which led to the website needed 
+
 **aplebzu47wgazapdqks6vrcv6zcnjppkbxbr6wketf56nf6aq2nmyoyd.onion**
