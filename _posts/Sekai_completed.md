@@ -1,6 +1,6 @@
 ---
 title: "Chibile - SEKAI CTF 2026 Write-up"
-date: 2026-07-1 6:00:00 +0200
+date: 2026-07-1 3:00:00 +0200
 categories: [CTF Writups]
 tags: [reverse engineering, game hacking, kernel]
 description: "Write-up for Chibile challenge SEKAI CTF 2026 "
