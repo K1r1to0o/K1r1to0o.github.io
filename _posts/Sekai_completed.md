@@ -73,7 +73,7 @@ then the anti-cheat DLL, `eac_nocrt.dll`, the kernel driver,
 `eac_shield.sys`, and finally `raylib.dll`.
 
 
-![](<assets/img/sekai/Files_check.png>)
+![](</assets/img/sekai/Files_check.png>)
 
 It then verifies that the anti-cheat DLL can load, installs the kernel driver,
 and starts it with the service name `EacShield`.
@@ -95,7 +95,7 @@ the **SHA-256** hashes of `chibile.exe`, `eac_nocrt.dll`, `eac_shield.sys`,
 and `raylib.dll`, and comparing them against hardcoded hashes.
 
 
-![](<assets/img/sekai/Hashes.png>)
+![](</assets/img/sekai/Hashes.png>)
 
 It then calls a routine that uses the `BCryptGenRandom` API to generate a
 32-byte random value. It sends the raw value to the kernel driver through
@@ -114,7 +114,7 @@ enter its name within a period of time. The further you get in the rounds, the
 less time you get to answer.
 
 
-![](<assets/img/sekai/Game1.png>)
+![](</assets/img/sekai/Game1.png>)
 
 So, the first problem I faced was the allowed time provided to answer the
 quiz.
@@ -126,7 +126,7 @@ argument is the maximum value between zero and a structure field containing
 the remaining time.
 
 
-![](<assets/img/sekai/time.png>)
+![](</assets/img/sekai/time.png>)
 
 Tracing this structure field, the game also draws the time bar by clamping a
 value between zero and one. It takes the minimum between one and the remaining
@@ -134,7 +134,7 @@ time divided by another structure field, so that other field must be the
 starting time, which is the time limit.
 
 
-![](<assets/img/sekai/Time_2.png>)
+![](</assets/img/sekai/Time_2.png>)
 
 Showing global XRefs of the time-limit field, it is initialized from a global
 array with the values:
@@ -146,7 +146,7 @@ array with the values:
 These are impossible to solve the quizzes in.
 
 
-![](<assets/img/sekai/Xref_time.png>)
+![](</assets/img/sekai/Xref_time.png>)
 
 From the previous analysis, the launcher only validates the hash of the game
 executable against a hardcoded value, which is easy to bypass. I couldn't find
@@ -168,12 +168,12 @@ So, I patched them all to **K1R1TOO**, making the quizzes much easier to
 solve.
 
 
-![](<assets/img/sekai/K1r1too.PNG>)
+![](</assets/img/sekai/K1r1too.PNG>)
 
 After solving the ten rounds, the game asks for a secret phrase (cheat code).
 
 
-![](<assets/img/sekai/Secret.png>)
+![](</assets/img/sekai/Secret.png>)
 
 Finding the function that produces the secret phrase wasn't that hard either.
 
@@ -181,7 +181,7 @@ Using the string **SECRET ROOM UNLOCKED**, I found the validator that validates
 the input against a decoded string.
 
 
-![](<assets/img/sekai/Validation_secret.png>)
+![](</assets/img/sekai/Validation_secret.png>)
 
 It decrypts the secret phrase using a small VM that has only three relevant
 opcodes:
@@ -193,7 +193,7 @@ opcodes:
 | `0x7F` | Return |
 
 
-![](<assets/img/sekai/VM_from inside.png>)
+![](</assets/img/sekai/VM_from inside.png>)
 
 The bytecode is decrypted through a rolling state machine that depends on the
 seed derived from the fifth argument passed to the function.
@@ -412,7 +412,7 @@ CONGRATS, YOU FOUND SOMETHING! TWEET AT @0XN*** AND MENTION THIS MESSAGE.
 ```
 
 
-![](<assets/img/sekai/Secret_room_phrase.png>)
+![](</assets/img/sekai/Secret_room_phrase.png>)
 
 After the game successfully gets to the secret room, it connects to a server
 and sends an encrypted JSON message with this format:
@@ -430,7 +430,7 @@ and sends an encrypted JSON message with this format:
 ```
 
 
-![](<assets/img/sekai/write_instruction.png>)
+![](</assets/img/sekai/write_instruction.png>)
 
 It waits for the server to respond and then decrypts the response.
 
@@ -455,7 +455,7 @@ Searching for the API, I found two APIs that I could use. The first one is
 header, and the second one is `free`.
 
 
-![](<assets/img/sekai/MEMCPY.png>)
+![](</assets/img/sekai/MEMCPY.png>)
 
 So, all I had to do was make a DLL whose `memcpy` export dumps the data pointed
 to by the second argument, using the length, and writes it to a file.
@@ -473,7 +473,7 @@ memory pointed to by the second argument using the copy length, then calls the
 original `memcpy`.
 
 
-![](<assets/img/sekai/Memcpy_hook.png>)
+![](</assets/img/sekai/Memcpy_hook.png>)
 
 At this call site, the source points to the plaintext JSON immediately after
 the four-byte `CBM1` header.
@@ -492,7 +492,7 @@ encrypted secret blobs:
 ```
 
 
-![](<assets/img/sekai/Dump.PNG>)
+![](</assets/img/sekai/Dump.PNG>)
 
 The `sid` value is used later in phase 2. The other four fields are used to
 recover the two values that the game asks for in the secret room.
@@ -534,14 +534,14 @@ the baked kernel half-key. I used the following values:
 The user mode dll is encrypted/packed so you'd need to unpack it and decrypt
 it in the runtime
 
-![](<assets/img/sekai/first_block_decrypt.png>)
+![](</assets/img/sekai/first_block_decrypt.png>)
 
 
-![](<assets/img/sekai/Anti_emulation.png>)
+![](</assets/img/sekai/Anti_emulation.png>)
 
 After that you can dump the decrypted dll. 
 
-![](<assets/img/sekai/Dump_dll.png>)
+![](</assets/img/sekai/Dump_dll.png>)
  
 
 ```python
@@ -557,10 +557,10 @@ BK_KERNEL = bytes.fromhex(
 ```
 
 
-![](<assets/img/sekai/Usermode_bk.png>)
+![](</assets/img/sekai/Usermode_bk.png>)
 
 
-![](<assets/img/sekai/KERNEL_BK.png>)
+![](</assets/img/sekai/KERNEL_BK.png>)
 
 Here, `BK_KERNEL` is the baked key used by the secret-delivery logic. It should
 not be confused with the runtime `bk` intermediate used while generating the
@@ -669,7 +669,7 @@ Usage:
 python solve_phase1.py < phase1_dump.json
 ```
 
-![](<assets/img/sekai/runn.PNG>)
+![](</assets/img/sekai/runn.PNG>)
 
 After getting the two strings, I pasted the first one into the USER MODE input
 and the second one into the KERNEL MODE input.
@@ -680,7 +680,7 @@ and passed to `LoadImageFromMemory` as a PNG image. That image is what gets
 shown in the final `ACCESS GRANTED` screen.
 
 
-![](<assets/img/sekai/winner.PNG>)
+![](</assets/img/sekai/winner.PNG>)
 
 So the final flow was:
 
